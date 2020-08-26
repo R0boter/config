@@ -16,7 +16,7 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
 xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 &
-# 如果不嫩正常启动 fcitx5，在后面添加 sleep 2 即可
+# 如果不能正常启动 fcitx5，在后面添加 sleep 2 即可
 fcitx5 &
 dunst &
 
@@ -103,7 +103,7 @@ do
 #  cat /proc/asound/card1/codec\#0 | grep Pin-ctls | grep 0x40 >> /dev/null
 #  if [ $? -eq 0 ]
 #  then
-#      VOL="奔 "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
+#      VOL=`echo -e "\uf028"`" "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
 #  else
 #      VOL=`echo -e "\ufcc3"`" "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
 #  fi
