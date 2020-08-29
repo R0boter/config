@@ -18,6 +18,7 @@ export XMODIFIERS="@im=fcitx"
 xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 &
 # 如果不能正常启动 fcitx5，在后面添加 sleep 2 即可
 fcitx5 &
+# 启动消息通知程序
 dunst &
 
 # 设置状态栏显示
