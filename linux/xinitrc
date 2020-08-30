@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# 使用外接显示器，关闭笔记本内置显示器
+xrandr --output VGA1 --primary --output eDP1 --off
 #自动连接wifi，如果不是使用wifi删除此句
 #sudo wpa_supplicant -B -i wlp4s0 -c /etc/wpa_supplicant/wpa_supplicant.conf 
+
+# dwm 用于修复 java 程序窗口 bug 的一个程序
+wmname LG3D &
 
 # 设置随机壁纸
 while true; do
@@ -20,6 +25,8 @@ xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 &
 fcitx5 &
 # 启动消息通知程序
 dunst &
+# 启动火焰截图
+flameshot &
 
 # 设置状态栏显示
 while true
@@ -98,31 +105,31 @@ do
   MEM_use=`echo -e "\ufa0e"`$(free -m | sed -n '2p' | awk '{printf "%.2f%",$3/$2*100}')
   
   # 获取音量
-  VOL=`echo -e "\uf028"`" "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
+#  VOL=`echo -e "\uf028"`" "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
 
   # 实体机里用于判断是耳机还是外放
-#  cat /proc/asound/card1/codec\#0 | grep Pin-ctls | grep 0x40 >> /dev/null
-#  if [ $? -eq 0 ]
-#  then
-#      VOL=`echo -e "\uf028"`" "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
-#  else
-#      VOL=`echo -e "\ufcc3"`" "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
-#  fi
+  cat /proc/asound/card1/codec\#0 | grep Pin-ctls | grep 0x40 >> /dev/null
+  if [ $? -eq 0 ]
+  then
+      VOL=`echo -e "\uf028"`" "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
+  else
+      VOL=`echo -e "\ufcc3"`" "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
+  fi
   
 
   # 笔记本获取电池
-#  BAT_status=$(cat /sys/class/power_supply/BAT0/status)
-#  if [[ $BAT_status == D* ]];then
-#      BAT=`echo -e "\uf583"`" "$(cat /sys/class/power_supply/BAT0/capacity)
-#  else
-#      BAT=`echo -e "\ufba3"`" "$(cat /sys/class/power_supply/BAT0/capacity)
-#  fi
+  BAT_status=$(cat /sys/class/power_supply/BAT0/status)
+  if [[ $BAT_status == D* ]];then
+      BAT=`echo -e "\uf583"`" "$(cat /sys/class/power_supply/BAT0/capacity)
+  else
+      BAT=`echo -e "\ufba3"`" "$(cat /sys/class/power_supply/BAT0/capacity)
+  fi
 
   # 时间日期
   DAY=`echo -e "\ufb8c"`" "$(date +"%m-%d %H:%M:%S ")
 #  TIME="-"$(date +"%H:%M:%S")
   
-  xsetroot -name "$net_RX $net_TX $CPU_use $MEM_use $HDD_free $VOL $DAY"
+  xsetroot -name "$net_RX $net_TX $CPU_use $MEM_use $HDD_free $VOL $BAT $DAY"
 done &
 
 exec dwm 
