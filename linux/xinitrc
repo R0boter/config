@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# 使用外接显示器，关闭笔记本内置显示器
 xrandr --output VGA1 --primary --output eDP1 --off
 #自动连接wifi，如果不是使用wifi删除此句
 #sudo wpa_supplicant -B -i wlp4s0 -c /etc/wpa_supplicant/wpa_supplicant.conf 
@@ -11,7 +10,7 @@ wmname LG3D &
 # 设置随机壁纸
 while true; do
 	find ~/Pictures/Wallpapers/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 |
-		shuf -n1 -z | xargs -0 feh --bg-scale
+		shuf -n1 -z | xargs -0 habak -hi
 	sleep 15m
 done &
 
