@@ -30,21 +30,9 @@ wmname LG3D &
 # 设置状态栏显示
 while true
 do
-#  # 获取上传下载的字节数
-#  interface=$(ip route get 114.114.114.114 2>> /dev/null | awk '{print $5}')
-#  old_RX=`grep $interface /proc/net/dev | awk '{print $2}'`
-#  old_TX=`grep $interface /proc/net/dev | awk '{print $10}'`
-#
-#  sleep 1
-#
-#  # 获取上传下载的字节数
-#  interface=$(ip route get 114.114.114.114 2>> /dev/null | awk '{print $5}')
-#  new_RX=`grep $interface /proc/net/dev | awk '{print $2}'`
-#  new_TX=`grep $interface /proc/net/dev | awk '{print $10}'`
-
 # 原本是按照网卡接口来计算流量，但必须先连接网络才生效，所以改为读取设备中所有接口的数值来计算流量，即使没连接网络脚本也可以正常运行
 
- # 获取上传下载的字节数
+# 获取上传下载的字节数
   RX=$(cat /proc/net/dev | awk '{print $2}' | grep '[0-9]')
   echo $RX
   old_RX=0
@@ -62,7 +50,7 @@ do
 
   sleep 1
 
-  # 获取上传下载的字节数
+# 获取上传下载的字节数
   RX=$(cat /proc/net/dev | awk '{print $2}' | grep '[0-9]')
   echo $RX
   new_RX=0
@@ -78,7 +66,7 @@ do
       new_TX=$(($new_TX + $i))
   done
 
-  # 计算上传下载的字节数，并添加单位
+# 计算上传下载的字节数，并添加单位
   net_RX=$((($new_RX - $old_RX) / 1024))
   net_TX=$((($new_TX - $old_TX) / 1024))
 
@@ -94,19 +82,17 @@ do
       net_TX=`echo -e "\ue33c"`" "$net_TX"KB/s"
   fi
 
-  # 计算本地硬盘剩余容量f171
+# 计算本地硬盘剩余容量f171
   HDD_free=`echo -e "\ue703"`" "$(df -h /dev/sda2 | grep / | awk '{print $4}')
 
- # 计算 CPU 使用率
+# 计算 CPU 使用率
   CPU_use=`echo -e "\ue234"`" "$(top -bn1 | grep Cpu | awk '{print(100-$8)"%"}')
 
-  # 计算内存使用率e20a
+# 计算内存使用率e20a
   MEM_use=`echo -e "\ufa0e"`$(free -m | sed -n '2p' | awk '{printf "%.2f%",$3/$2*100}')
 
-  # 获取音量
-#  VOL=`echo -e "\uf028"`" "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
 
-  # 实体机里用于判断是耳机还是外放
+# 获取音量,实体机里用于判断是耳机还是外放
   cat /proc/asound/card1/codec\#0 | grep Pin-ctls | grep 0x40 >> /dev/null
   if [ $? -eq 0 ]
   then
@@ -116,17 +102,16 @@ do
   fi
 
 
-  # 笔记本获取电池
-  BAT_status=$(cat /sys/class/power_supply/BAT0/status)
-  if [[ $BAT_status == D* ]];then
-      BAT=`echo -e "\uf583"`" "$(cat /sys/class/power_supply/BAT0/capacity)
-  else
-      BAT=`echo -e "\ufba3"`" "$(cat /sys/class/power_supply/BAT0/capacity)
-  fi
+# 笔记本获取电池
+#  BAT_status=$(cat /sys/class/power_supply/BAT0/status)
+#  if [[ $BAT_status == D* ]];then
+#      BAT=`echo -e "\uf583"`" "$(cat /sys/class/power_supply/BAT0/capacity)
+#  else
+#      BAT=`echo -e "\ufba3"`" "$(cat /sys/class/power_supply/BAT0/capacity)
+#  fi
 
-  # 时间日期
+# 时间日期
   DAY=`echo -e "\ufb8c"`" "$(date +"%m-%d %H:%M:%S ")
-#  TIME="-"$(date +"%H:%M:%S")
 
   xsetroot -name "$net_RX $net_TX $CPU_use $MEM_use $HDD_free $VOL $BAT $DAY"
 done &

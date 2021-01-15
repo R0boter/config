@@ -263,25 +263,6 @@ _zimfw_source_zimrc() {
   fi
 }
 
-_zimfw_version_check() {
-  if (( _zprintlevel > 0 )); then
-    setopt LOCAL_OPTIONS EXTENDED_GLOB
-    local -r ztarget=${ZIM_HOME}/.latest_version
-    # If .latest_version does not exist or was not modified in the last 30 days
-    if [[ -w ${ztarget:h} && ! -f ${ztarget}(#qNm-30) ]]; then
-      command git ls-remote --tags --refs https://github.com/zimfw/zimfw.git 'v*' | \
-          command sed 's?^.*/v??' | command sort -n -t. -k1,1 -k2,2 -k3,3 | \
-          command tail -n1 >! ${ztarget} &!
-    fi
-    if [[ -f ${ztarget} ]]; then
-      local -r zlatest_version=$(<${ztarget})
-      if [[ -n ${zlatest_version} && ${_zversion} != ${zlatest_version} ]]; then
-        print -u2 -PR "%F{yellow}Latest zimfw version is %B${zlatest_version}%b. You're using version %B${_zversion}%b. Run %Bzimfw upgrade%b to upgrade.%f"$'\n'
-      fi
-    fi
-  fi
-}
-
 _zimfw_clean_compiled() {
   local zopt
   if (( _zprintlevel > 0 )) zopt='-v'
@@ -305,7 +286,6 @@ _zimfw_compile() {
 }
 
 _zimfw_info() {
-  print -R 'zimfw version: '${_zversion}' (previous commit is 1e4d1e7)'
   print -R 'ZIM_HOME:      '${ZIM_HOME}
   print -R 'Zsh version:   '${ZSH_VERSION}
   print -R 'System info:   '$(command uname -a)
@@ -324,32 +304,8 @@ _zimfw_uninstall() {
   _zimfw_print -P 'Done with uninstall.'
 }
 
-_zimfw_upgrade() {
-  local -r ztarget=${ZIM_HOME}/zimfw.zsh
-  local -r zurl=https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh.gz
-  {
-    setopt LOCAL_OPTIONS PIPE_FAIL
-    if (( ${+commands[curl]} )); then
-      command curl -fsSL ${zurl} | command gunzip > ${ztarget}.new || return 1
-    else
-      local zopt
-      if (( _zprintlevel <= 1 )) zopt='-q'
-      if ! command wget -nv ${zopt} -O - ${zurl} | command gunzip > ${ztarget}.new; then
-        if (( _zprintlevel <= 1 )) print -u2 -PR "%F{red}x Error downloading %B${zurl}%b. Use %B-v%b option to see details.%f"
-        return 1
-      fi
-    fi
-    # .latest_version can be outdated and will yield a false warning if zimfw is
-    # upgraded before .latest_version is refreshed. Bad thing about having a cache.
-    _zimfw_mv ${ztarget}{.new,} && command rm -f ${ZIM_HOME}/.latest_version && \
-        _zimfw_print -P 'Done with upgrade.'
-  } always {
-    command rm -f ${ztarget}.new
-  }
-}
-
 zimfw() {
-  local -r _zversion='1.3.0'
+
   local -r zusage="Usage: %B${0}%b <action> [%B-q%b|%B-v%b]
 Actions:
   %Bbuild%b           Build %Binit.zsh%b and %Blogin_init.zsh%b
@@ -362,8 +318,7 @@ Actions:
   %Binstall%b         Install new modules
   %Buninstall%b       Delete unused modules
   %Bupdate%b          Update current modules
-  %Bupgrade%b         Upgrade %Bzimfw.zsh%b
-  %Bversion%b         Print Zim version
+
 Options:
   %B-q%b              Quiet, only outputs errors
   %B-v%b              Verbose
@@ -383,10 +338,6 @@ Options:
         return 1
         ;;
     esac
-  fi
-
-  if ! zstyle -t ':zim' disable-version-check; then
-    _zimfw_version_check
   fi
 
   case ${1} in
@@ -503,7 +454,6 @@ fi
       (( _zprintlevel-- ))
       _zimfw_compile
       ;;
-    version) print -PR ${_zversion} ;;
     *)
       print -u2 -PR "%F{red}${0}: Unknown action ${1}%f"$'\n\n'${zusage}
       return 1

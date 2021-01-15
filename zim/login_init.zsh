@@ -12,7 +12,7 @@
     zrecompile -p ${1} ${zfile} || return 1
   done
   # Compile Zim scripts
-  for zfile in /home/raven/.config/zim/(^*test*/)#*.zsh(|-theme)(N-.); do
+  for zfile in /home/falcon/.config/zim/(^*test*/)#*.zsh(|-theme)(N-.); do
     zrecompile -p ${1} ${zfile} || return 1
   done
   if [[ ${1} != -q ]] print -P 'Done with compile.'
