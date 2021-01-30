@@ -15,7 +15,7 @@ zmodule termtitle
 zmodule utility
 
 # A customizable version of gitster prompt theme.
-zmodule gitster
+zmodule sorin
 
 #
 # Prompt
