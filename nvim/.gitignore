@@ -1,1 +1,4 @@
-/autoload/
+# language-serve project folder
+/ls
+# packer compiled file
+/plugin
