@@ -3,6 +3,7 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.bo.expandtab = true
 vim.o.guicursor = "n-i-c-ci-cr:ver1,v-ve-o-r-sm:hor1"
+vim.o.hlsearch= false
 
 require('plugins')
 require('plugs')

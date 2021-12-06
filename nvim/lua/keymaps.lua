@@ -27,3 +27,5 @@ keybind('x', 'J', ':move \'>+1<CR>gv-gv', {noremap = true, silent = true})
 -- Tab Complete
 -- keybind('i', '<expr><Tab>', 'pumvisible() ? \"<C-n>\" : \"<Tab>\"', {noremap = true, silent = true})
 
+-- ESC and nohlsearch
+keybind('n', 'n', 'n:nohl<CR>', {noremap = true, silent = true})

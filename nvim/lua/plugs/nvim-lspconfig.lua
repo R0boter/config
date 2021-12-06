@@ -1,4 +1,5 @@
 -- Setup lspconfig.
+local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Set sumneko_lua_language_server
@@ -11,10 +12,10 @@ else
   print("Sorry this system is not supported!!")
 end 
 
---Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+-- lua lsp
 
-require('lspconfig')['sumneko_lua'].setup {
---	capabilities = capabilities,
+lspconfig['sumneko_lua'].setup {
+	capabilities = capabilities,
 	cmd = {sumneko_root .. "/lua-language-server"},
 	settings = {
 		lua = {
@@ -34,3 +35,79 @@ require('lspconfig')['sumneko_lua'].setup {
 		}
 	}
 }
+
+-- python lsp
+
+lspconfig['pyright'].setup {
+	capabilities = capabilities,
+}
+
+-- emmet lsp
+lspconfig['emmet_ls'].setup {
+	capabilities = capabilities,
+	filetypes = {"html", "css", "vue", "javascript", "typescript"}
+}
+
+-- JS/TS lsp
+lspconfig['tsserver'].setup {
+	capabilities = capabilities,
+	filetypes = {"html",  "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue"}
+}
+
+-- Vue2 lsp
+lspconfig['vuels'].setup{
+	capabilities = capabilities,
+}
+
+-- PHP lsp
+lspconfig['intelephense'].setup {
+	capabilities = capabilities,
+}
+
+---- CSS lsp
+--
+--lspconfig['cssls'].setup {
+--	capabilities = capabilities,
+--	filetypes = { "css", "scss", "less", "vue", "html" }
+--}
+--
+---- HTML lsp
+--
+--lspconfig['html'].setup {
+--	capabilities = capabilities,
+--}
+--
+---- Json lsp
+--
+--lspconfig['jsonls'].setup {
+--	capabilities = capabilities,
+--}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
