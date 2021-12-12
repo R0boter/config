@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #xrandr --output VGA1 --primary --output eDP1 --off
+#xrandr -s 2240x1400
 #自动连接wifi，如果不是使用wifi删除此句
 #sudo wpa_supplicant -B -i wlp4s0 -c /etc/wpa_supplicant/wpa_supplicant.conf
 
