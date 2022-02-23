@@ -139,3 +139,11 @@ bindkey -M vicmd 'j' history-substring-search-down
 # Initialize Zim
 source ${ZIM_HOME}/login_init.zsh -q &!
 # }}} End configuration added by Zim install
+
+#alias set
+alias mongo="mongo.exe"
+
+if [ -z "$TMUX" ]
+then
+    tmux attach -t TMUX || tmux new -s TMUX
+fi
