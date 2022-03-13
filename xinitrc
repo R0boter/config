@@ -10,7 +10,7 @@
 # 设置随机壁纸
 while true; do
 	find ~/Pictures/Wallpapers/ -type f \( -name '*.jpg' -o -name '*.png' \) -print0 |
-		shuf -n1 -z | xargs -0 habak -hi
+		shuf -n1 -z | xargs -0 habak -ms
 	sleep 15m
 done &
 
@@ -19,7 +19,7 @@ export LANGUAGE=zh_CN:en_US
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
-xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 &
+picom -CGB &
 # 如果不能正常启动 fcitx5，在后面添加 sleep 2 即可
 fcitx5 &
 # 启动消息通知程序
