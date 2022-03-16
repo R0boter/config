@@ -100,9 +100,9 @@ do
   cat /proc/asound/card1/codec\#0 | grep Pin-ctls | grep 0x40 >> /dev/null
   if [ $? -eq 0 ]
   then
-      VOL=`echo -e "\uf028"`" "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
+    VOL=`echo -e "\uf028"`" "$(pactl get-sink-volume 0 | awk '{printf $5}')
   else
-      VOL=`echo -e "\ufcc3"`" "$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
+      VOL=`echo -e "\ufcc3"`" "$(pactl get-sink-volume 0 | awk '{printf $5}')
   fi
 
 
