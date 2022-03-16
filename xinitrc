@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #xrandr --output VGA1 --primary --output eDP1 --off
-#xrandr -s 2240x1400
+xrandr -s 2240x1400
 #自动连接wifi，如果不是使用wifi删除此句
 #sudo wpa_supplicant -B -i wlp4s0 -c /etc/wpa_supplicant/wpa_supplicant.conf
 
@@ -19,7 +19,10 @@ export LANGUAGE=zh_CN:en_US
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
-picom -CGB &
+# 渲染器
+picom &
+# 网络连接托盘
+nm-applet &
 # 如果不能正常启动 fcitx5，在后面添加 sleep 2 即可
 fcitx5 &
 # 启动消息通知程序
