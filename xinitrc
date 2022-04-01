@@ -116,9 +116,9 @@ while true; do
 
   BAT_STA=$(acpi -i | sed -n '1p' | awk '{printf $3}')
   if [[ $BAT_STA == D* ]]; then
-    BAT=$(echo -e "\uf583")" "$(acpi -i | sed -n '1p' | awk '{printf $4}')" 剩余时间:"$(acpi -i | sed -n '1p' | awk '{printf $5}')
+    BAT=$(echo -e "\uf583")$(acpi -i | sed -n '1p' | awk -F, '{printf $2}')" 剩余时间:"$(acpi -i | sed -n '1p' | awk '{printf $5}')
   else
-    BAT=$(echo -e "\ufba3")" "$(acpi -i | sed -n '1p' | awk '{printf $4}')
+    BAT=$(echo -e "\ufba3")$(acpi -i | sed -n '1p' | awk -F, '{printf $2}')
   fi
 
   # 时间日期
