@@ -24,6 +24,8 @@ export XMODIFIERS="@im=fcitx"
 picom &
 # 网络连接托盘
 nm-applet &
+# 蓝牙托盘
+blueberry-tray &
 # 如果不能正常启动 fcitx5，在后面添加 sleep 2 即可
 fcitx5 &
 # 启动消息通知程序
@@ -130,4 +132,5 @@ while true; do
   xsetroot -name "$UPTIME $net_RX $net_TX $CPU_use $MEM_use $HDD_free $VOL $BAT $DAY "
 done &
 
+exec slock &
 exec dwm
