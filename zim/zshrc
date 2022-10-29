@@ -1,4 +1,3 @@
-
 # Start configuration added by Zim install {{{
 #
 # User configuration sourced by all invocations of the shell
@@ -140,6 +139,10 @@ bindkey -M vicmd 'j' history-substring-search-down
 source ${ZIM_HOME}/login_init.zsh -q &!
 # }}} End configuration added by Zim install
 
+alias C="cd ~/Documents && zellij attach CODE || zellij -l compact -s CODE"
+alias W="cd ~/Work && zellij attach WORK || zellij -l compact -s WORK"
+alias T="cd ~/Desktop && zellij attach TERMINAL || zellij -l compact -s TERMINAL"
+
 #alias set
 #alias mongo="mongo.exe"
 
@@ -147,3 +150,5 @@ source ${ZIM_HOME}/login_init.zsh -q &!
 #then
 #    tmux attach -t TMUX || tmux new -s TMUX
 #fi
+
+alias gf=gf

@@ -318,7 +318,6 @@ Actions:
   %Binstall%b         Install new modules
   %Buninstall%b       Delete unused modules
   %Bupdate%b          Update current modules
-
 Options:
   %B-q%b              Quiet, only outputs errors
   %B-v%b              Verbose
