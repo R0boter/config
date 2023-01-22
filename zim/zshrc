@@ -139,9 +139,16 @@ bindkey -M vicmd 'j' history-substring-search-down
 source ${ZIM_HOME}/login_init.zsh -q &!
 # }}} End configuration added by Zim install
 
-alias C="cd ~/Documents && zellij attach CODE || zellij -l compact -s CODE"
-alias W="cd ~/Work && zellij attach WORK || zellij -l compact -s WORK"
-alias T="cd ~/Desktop && zellij attach TERMINAL || zellij -l compact -s TERMINAL"
+# alias D="cd ~/Desktop/Documents && zellij attach CODE || zellij -l compact -s CODE"
+# alias W="cd ~/Desktop/Work && zellij attach WORK || zellij -l compact -s WORK"
+# alias T="cd ~/Desktop && zellij attach TERMINAL || zellij -l compact -s TERMINAL"
+alias D="cd ~/Desktop/Documents"
+alias W="cd ~/Desktop/Work"
+alias T="cd ~/Desktop"
+alias zel="zellij attach TERMINAL || zellij -l compact -s TERMINAL"
+
+alias v="nvim"
+alias vi="nvim"
 
 #alias set
 #alias mongo="mongo.exe"
@@ -151,4 +158,6 @@ alias T="cd ~/Desktop && zellij attach TERMINAL || zellij -l compact -s TERMINAL
 #    tmux attach -t TMUX || tmux new -s TMUX
 #fi
 
-alias gf=gf
+
+
+# eval "$(zellij setup --generate-auto-start zsh)"

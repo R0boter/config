@@ -1,8 +1,7 @@
 zimfw() { source /root/.config/zim/zimfw.zsh "${@}" }
-fpath=(/root/.config/zim/modules/git/functions /root/.config/zim/modules/utility/functions /root/.config/zim/modules/git-info/functions ${fpath})
-autoload -Uz git-alias-lookup git-branch-current git-branch-delete-interactive git-branch-remote-tracking git-dir git-ignore-add git-root git-stash-clear-interactive git-stash-recover git-submodule-move git-submodule-remove mkcd mkpw coalesce git-action git-info
+fpath=(/root/.config/zim/modules/utility/functions /root/.config/zim/modules/prompt-pwd/functions /root/.config/zim/modules/git-info/functions ${fpath})
+autoload -Uz mkcd mkpw prompt-pwd coalesce git-action git-info
 source /root/.config/zim/modules/environment/init.zsh
-#source /root/.config/zim/modules/git/init.zsh
 source /root/.config/zim/modules/input/init.zsh
 source /root/.config/zim/modules/termtitle/init.zsh
 source /root/.config/zim/modules/utility/init.zsh
